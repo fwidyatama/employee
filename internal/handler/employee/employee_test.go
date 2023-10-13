@@ -55,7 +55,7 @@ func TestCreateEmployee(t *testing.T) {
 			buildStub: func(employeeUCMock *employeeUCMock.EmployeeUseCaseMock) {
 			},
 			checkReturn: func(resp *httptest.ResponseRecorder) {
-				assert.Equal(t, http.StatusInternalServerError, resp.Code)
+				assert.Equal(t, http.StatusBadRequest, resp.Code)
 			},
 		},
 		{
