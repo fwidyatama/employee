@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  employee-api:
+    build: .
+    volumes:
+      - .:/usr/src/employee-api
+      - ./.env:/app/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres-db
+    restart: always
+    networks:
+      - api-network
+
+  postgres-db:
+    image: postgres:9.6
+    container_name: api-db
+    restart: always
+    volumes:
+      - employee:/var/lib/postgresql/data
+      - ./db/migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/migrations/000001_initial_employees.up.sql:/docker-entrypoint-initdb.d/init_employee_table.sql
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      DATABASE_HOST: ${DB_HOST}
+    networks:
+      api-network:
+        aliases:
+          - database
+
+volumes:
+  employee:
+
+networks:
+  api-network:
+    driver: bridge
