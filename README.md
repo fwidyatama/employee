@@ -57,3 +57,9 @@ To open the collection file, you can follow this step :
 3. choose the collection file in docs folder
 4. run the server and you can try the endpoint via postman.
 ```
+
+## Test
+To run unit testing, you can run it via this command : 
+```bash 
+make test
+```

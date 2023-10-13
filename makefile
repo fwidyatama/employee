@@ -8,3 +8,6 @@ migrate-up:
 
 migrate-down:
 	 migrate -database "postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=disable" -path ./db/migrations down
+
+test :
+	go test ./internal/...
